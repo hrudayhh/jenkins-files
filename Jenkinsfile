@@ -13,7 +13,7 @@ pipeline {
             stage('convert to json') {
                 steps {
                     script {
-                        def data = readYaml('config.yml')
+                        def data = readYaml file: 'config.yml'
                         println(data)
                     }
                 //def json = new JsonBuilder(data).toPrettyString()        
