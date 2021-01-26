@@ -3,7 +3,9 @@ pipeline {
     agent any
         stages {  
             stage('get code') {
-              git credentialsId: 'pl_test', url: 'https://github.com/hrudayhh/pl_test.git'
+                steps {
+                    git credentialsId: 'pl_test', url: 'https://github.com/hrudayhh/pl_test.git'
+                }
             }
             stage('convert to json') {
                 steps {
