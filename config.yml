@@ -1,3 +1,6 @@
+name: configuration
+type: galaxy
+
 dev:
   branch: develop
   verbose: 3
