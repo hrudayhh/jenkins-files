@@ -1,6 +1,6 @@
 import groovy.json.*
-    def data = readYaml file: 'config.yml'
-    writeFile file: 'config.json', json: data
+    def data = readYaml('config.yml')
+    writeFile file: 'config.json', text: 'data'
     
 pipeline {
     agent any
