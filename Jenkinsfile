@@ -1,6 +1,6 @@
 import groovy.json.*
-    def data = readYaml('config.yml')
-    writeFile file: 'config.json', text: '${data}'
+    
+    //writeFile file: 'config.json', text: '${data}'
     
 pipeline {
     agent any
@@ -13,7 +13,8 @@ pipeline {
             stage('convert to json') {
                 steps {
                     script {
-                        echo 'converted'
+                        def data = readYaml('config.yml')
+                        println(data)
                     }
                 //def json = new JsonBuilder(data).toPrettyString()        
                 }  
