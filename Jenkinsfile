@@ -9,11 +9,9 @@ pipeline {
             }
             stage('convert to json') {
                 steps {
-                    script {
                         def data = readYaml file: 'config.yml'
                         //def json = new JsonBuilder(data).toPrettyString()
                         writeJson file: 'config.json', json: data
-                    }
                 }  
             }
         }
