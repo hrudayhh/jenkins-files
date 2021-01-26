@@ -1,0 +1,9 @@
+dev:
+  branch: develop
+  verbose: 3
+  env: test
+
+uat: 
+  branch: aat
+  verbose: 4
+  env: sit
