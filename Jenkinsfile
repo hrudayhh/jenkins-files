@@ -14,6 +14,8 @@ pipeline {
                 steps {
                     script {
                         def data = readYaml file: 'config.yml'
+                        println(data.name)
+                        println(data.type)
                         println(data.uat.verbose)
                         //writeJSON file: 'output.json', json: data
                     }
