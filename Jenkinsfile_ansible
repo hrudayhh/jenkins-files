@@ -1,0 +1,14 @@
+pipeline {
+    agent {
+        docker {
+            image 'ansible/ansible'
+        }
+    }
+    stages {
+        stage('version') {
+            steps {
+                sh 'ansible --version'
+            }
+        }
+    }
+}
