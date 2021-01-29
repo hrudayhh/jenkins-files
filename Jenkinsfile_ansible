@@ -27,6 +27,9 @@ pipeline {
      always {
        echo 'One way or another, I have finished'
        cleanWs() /* clean up our workspace */
+       dir("${WORKSPACE}@tmp") {
+        deleteDir()
+       }
      }
    }
 }
