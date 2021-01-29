@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    deleteDir()
+    
     stages {
         stage('get code') {
             steps {
