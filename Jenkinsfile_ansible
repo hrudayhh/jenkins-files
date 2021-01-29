@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'ansible/ansible:ubuntu1604py3'
+            image 'hrudayhh/ansible:v2.9.7'
         }
     }
     stages {
@@ -9,6 +9,6 @@ pipeline {
             steps {
                 sh 'ansible --version'
             }
-        }
+        }:
     }
 }
