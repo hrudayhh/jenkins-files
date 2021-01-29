@@ -24,7 +24,8 @@ pipeline {
         }
         stage('Clean extra dirs') {
             steps {
-                sh "find . -type d -name \"\*\@\*\" -exec rm -rf {} \;"
+                files=sh(returnStdout: true, script: 'find . -type d -name "*@*"')
+                println "${files}"
             }
         }
     }
