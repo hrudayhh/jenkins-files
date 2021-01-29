@@ -28,10 +28,9 @@ pipeline {
                     sh '''
                         path=$(echo \$WORKSPACE | awk -F'/' 'BEGIN{OFS="/";} {\$NF=""; print \$0}')
                         echo $path
+                        find $path -type d -name "*@*" -exec rm -rf "{}" \; 
+                          
                     '''
-                        
-                    files=sh(returnStdout: true, script: 'find ${path} -type d -name "*@*"')
-                    println "${files}"
                 }
             }
         }
