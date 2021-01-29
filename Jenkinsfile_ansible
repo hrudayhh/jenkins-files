@@ -2,12 +2,7 @@ pipeline {
     agent any
     
     stages {
-        stage('CleanWorkspace') {
-            steps {
-                sh 'ls ${WORKSPACE}'
-                sh 'rm -rf ${WORKSPACE}'
-            }
-        }
+        
         stage('get code') {
             steps {
                 git 'https://github.com/hrudayhh/jjcfw.git'
@@ -25,6 +20,12 @@ pipeline {
                     ansible-galaxy install -r roles/requirements.yml -p .
                     ansible-galaxy list --roles-path=.
                 '''
+            }
+        }
+        stage('CleanWorkspace') {
+            steps {
+                sh 'ls ${WORKSPACE}'
+                sh 'rm -rf ${WORKSPACE}'
             }
         }
     }
