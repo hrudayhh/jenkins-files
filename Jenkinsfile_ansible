@@ -9,7 +9,7 @@ pipeline {
                     sh '''
                         path=$(echo \$WORKSPACE | awk -F'/' 'BEGIN{OFS="/";} {\$NF=""; print \$0}')
                         echo $path
-                        find $path -type d -name "*@*" -exec rm -rf "{}" \\; 
+                        find $path -name "*@*" -type d -exec rm -rf "{}" \\; 
                           
                     '''
                 }
