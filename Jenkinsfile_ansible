@@ -22,11 +22,11 @@ pipeline {
                 '''
             }
         }
-        stage('CleanWorkspace') {
-            steps {
-                sh 'ls ${WORKSPACE}'
-                sh 'rm -rf ${WORKSPACE}'
-            }
-        }
     }
+   post {
+     always {
+       echo 'One way or another, I have finished'
+       cleanWs() /* clean up our workspace */
+     }
+   }
 }
