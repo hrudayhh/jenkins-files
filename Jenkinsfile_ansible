@@ -6,10 +6,18 @@ pipeline {
         }
     }
     stages {
-        stage('version') {
+        stage('get code') {
             steps {
-                sh 'ansible --version'
-                
+                sh '''
+                    git clone https://github.com/hrudayhh/pl_test.git
+                '''
+            }
+        }
+        stage('install roles') {
+            steps {
+                sh '''
+                    ansible-galaxy install -r roles/requirements.yml -p .
+                '''
             }
         }
     }
