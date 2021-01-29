@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Clean extra dirs') {
             steps {
-                sh "find . -type d -name "*@*" -exec rm -rf {} \;"
+                sh "find . -type d -name \"\*\@\*\" -exec rm -rf {} \;"
             }
         }
     }
