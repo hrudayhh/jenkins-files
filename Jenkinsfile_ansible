@@ -9,7 +9,7 @@ pipeline {
         stage('get code') {
             steps {
                 sh '''
-                    git clone https://github.com/hrudayhh/pl_test.git
+                    rm -rf * && git clone https://github.com/hrudayhh/pl_test.git
                 '''
             }
         }
