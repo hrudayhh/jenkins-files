@@ -22,12 +22,17 @@ pipeline {
                 '''
             }
         }
+        stage('Clean extra dirs') {
+            steps {
+                sh "find . -type d -name "*@*" -exec rm -rf {} \;"
+            }
+        }
     }
    post {
      always {
        echo 'One way or another, I have finished'
        cleanWs() /* clean up our workspace */
-       sh "rm -rf *@*"
+       //sh "rm -rf *@*"
        }
      }
    }
