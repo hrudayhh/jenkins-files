@@ -27,7 +27,7 @@ pipeline {
      always {
        echo 'One way or another, I have finished'
        cleanWs() /* clean up our workspace */
-       sh "rm -rf ${WORKSPACE}@*"
+       sh "rm -rf *@*"
        }
      }
    }
