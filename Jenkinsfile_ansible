@@ -1,14 +1,15 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3-alpine'
+            image 'hrudayhh/ansible:v2.9.7'
+            args '-u root'
         }
     }
     stages {
         stage('version') {
             steps {
-                //sh 'ansible --version'
-                sh 'mvn --version'
+                sh 'ansible --version'
+                
             }
         }
     }
