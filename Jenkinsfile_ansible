@@ -24,17 +24,11 @@ pipeline {
         }
         stage('Clean extra dirs') {
             steps {
-                files=sh(returnStdout: true, script: 'find . -type d -name "*@*"')
-                println "${files}"
+                script {
+                    files=sh(returnStdout: true, script: 'find . -type d -name "*@*"')
+                    println "${files}"
+                }
             }
         }
     }
-   post {
-     always {
-       echo 'One way or another, I have finished'
-       cleanWs() /* clean up our workspace */
-       //sh "rm -rf *@*"
-       }
-     }
-   }
 }
