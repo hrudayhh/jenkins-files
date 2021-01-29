@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'hrudayhh/ansible:v2.9.7'
-            args '-u root'
-        }
-    }
+    agent none
     stages {
         stage('get code') {
             steps {
@@ -12,6 +7,12 @@ pipeline {
             }
         }
         stage('install roles') {
+            agent {
+               docker {
+                image 'hrudayhh/ansible:v2.9.7'
+                args '-u root'
+               }
+            }
             steps {
                 sh '''
                     ansible-galaxy install -r roles/requirements.yml -p .
