@@ -3,18 +3,7 @@ pipeline {
     
     stages {
     
-        stage('Clean extra dirs') {
-            steps {
-                script {
-                    sh '''
-                        path=$(echo \$WORKSPACE | awk -F'/' 'BEGIN{OFS="/";} {\$NF=""; print \$0}')
-                        echo $path
-                        find $path -name "*@*" -type d -exec rm -rf "{}" \\; 
-                          
-                    '''
-                }
-            }
-        }    
+            
         stage('get code') {
             steps {
                 git 'https://github.com/hrudayhh/jjcfw.git'
@@ -34,6 +23,17 @@ pipeline {
                 '''
             }
         }
-        
+        stage('Clean extra dirs') {
+            steps {
+                script {
+                    sh '''
+                        path=$(echo \$WORKSPACE | awk -F'/' 'BEGIN{OFS="/";} {\$NF=""; print \$0}')
+                        echo $path
+                        find $path -name "*@*" -type d -exec rm -rf {} +
+                          
+                    '''
+                }
+            }
+        }
     }
 }
