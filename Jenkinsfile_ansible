@@ -25,7 +25,11 @@ pipeline {
         stage('Clean extra dirs') {
             steps {
                 script {
-                    path=sh(returnStdout: true, script: 'awk -F'/' 'BEGIN{OFS="/";} {$NF=""; print $0}'')
+                    sh '''
+                        path=awk -F'/' 'BEGIN{OFS="/";} {$NF=""; print $0}'
+                        echo $path
+                    '''
+                        
                     files=sh(returnStdout: true, script: 'find ${path} -type d -name "*@*"')
                     println "${files}"
                 }
