@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        path=awk -F'/' 'BEGIN{OFS="/";} {$NF=""; print $0}'
+                        path=$(awk -F'/' 'BEGIN{OFS="/";} {\$NF=""; print \$0}')
                         echo $path
                     '''
                         
