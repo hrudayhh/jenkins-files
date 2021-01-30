@@ -30,7 +30,7 @@ pipeline {
                         wn=$(echo \$WORKSPACE | awk -F'/' '{print $NF}')
                         path=$(echo \$WORKSPACE | awk -F'/' 'BEGIN{OFS="/";} {\$NF=""; print \$0}')
                         echo $path
-                        find $path -name "$wn@*" -type d -exec rm -rf {} +
+                        find $path -name "$wn@tmp" -type d -exec rm -rf {} +
                           
                     '''
                 }
