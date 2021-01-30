@@ -1,9 +1,7 @@
 pipeline {
     agent any
     
-    stages {
-    
-            
+    stages { 
         stage('get code') {
             steps {
                 git 'https://github.com/hrudayhh/jjcfw.git'
