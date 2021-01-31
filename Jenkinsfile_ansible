@@ -27,7 +27,7 @@ pipeline {
                     pwd
                     ws=$(echo $WORKSPACE | awk -F'/' 'BEGIN{OFS="/";} {$NF=""; print $0}')
                     echo $ws
-                    find $ws -name "workspace*" -type d -exec rm -rf {} +
+                    find $ws -name "workspace@*" -type d -exec rm -rf {} +
                 '''
                 
             }
