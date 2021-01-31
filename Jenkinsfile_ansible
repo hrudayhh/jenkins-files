@@ -23,8 +23,13 @@ pipeline {
         }
         stage('cleanup') {
             steps {
-                sh "pwd"        
-                sh "echo $WORKSPACE"
+                sh '''
+                    pwd
+                    ws=$(echo $WORKSPACE | awk -F'/' 'BEGIN{OFS="/";} {$NF=""; print $0}')
+                    echo $ws
+                    find $ws -name "workspace*" -type d -exec ls {} +
+                '''
+                
             }
         }
     }
