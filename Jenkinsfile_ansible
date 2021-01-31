@@ -27,6 +27,7 @@ pipeline {
                     pwd
                     ls $WORKSPACE
                     find $WORKSPACE/* -type d -exec rm -rf {} +
+                    ls $WORKSPACE
                 '''
                 
             }
