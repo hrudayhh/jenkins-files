@@ -21,6 +21,11 @@ pipeline {
                 '''
             }
         }
-      
+        stage('cleanup') {
+            steps {
+                sh "pwd"        
+                sh "echo $WORKSPACE"
+            }
+        }
     }
 }
