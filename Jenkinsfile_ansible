@@ -8,7 +8,8 @@ pipeline {
         }
         stage('check urls') {
             steps {
-                sh '''            
+                sh '''   
+                set -x
                 count_roles=$(grep "src" roles/requirements.yml | cut -d':' -f2,3 | awk '{$1=$1;print}' | wc -l)
                 if [ "$count_roles" -eq 0 ]; then
                   echo "No roles defined in requirements.yml file"
