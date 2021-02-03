@@ -1,35 +1,33 @@
 pipeline {
     agent any
-    
     stages { 
-        stage('get code') {
+        stage('clone') {
             steps {
-                git 'https://github.com/hrudayhh/jjcfw.git'
+                git credentialsId: 'git_creds', url: 'https://github.com/hrudayhh/jjcfw.git'
             }
         }
-        stage('install roles') {
-            agent {
-               docker {
-                image 'hrudayhh/ansible:v2.9.7'
-                args '-u root'
-               }
-            }
+        stage('check urls') {
             steps {
-                sh '''
-                    ansible-galaxy install -r roles/requirements.yml -p .
-                    ansible-galaxy list --roles-path=.
+                sh '''            
+                count_roles=$(grep "src" roles/requirements.yml | cut -d':' -f2,3 | awk '{$1=$1;print}' | wc -l)
+                if [ "$count_roles" -eq 0 ]; then
+                  echo "No roles defined in requirements.yml file"
+                  exit 1
+                elif [ "$count_roles" -gt 0 ]; then
+                  echo "Roles are defined in requirements.yml file"
+                  echo "Verfying URLs of roles"
+                  for repo_url in $(grep "src" roles/requirements.yml | cut -d':' -f2,3 | awk '{$1=$1;print}')
+                  do
+                    git ls-remote "$repo_url"
+                    if [ $? -ne 0 ]; then
+                      echo "[ERROR] Git URL $repo_url not found"
+                      exit 1
+                    else
+                      echo "Git URL $repo_url found"
+                    fi
+                   done
+                fi
                 '''
-            }
-        }
-        stage('cleanup') {
-            steps {
-                sh '''
-                    pwd
-                    ls $WORKSPACE
-                    find $WORKSPACE/* -type d -exec rm -rf {} +
-                    ls $WORKSPACE
-                '''
-                
             }
         }
     }
