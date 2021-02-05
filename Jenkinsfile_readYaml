@@ -15,7 +15,7 @@ pipeline {
                     urls = data.src
                     for (repos in urls) {
                         sh '''
-                            ssh-keyscan github.com >> /root/.ssh/known_hosts
+                            # ssh-keyscan github.com >> /root/.ssh/known_hosts
                             git ls-remote ${repos}
                         '''
                     }
