@@ -9,8 +9,8 @@ pipeline {
         stage('Read YAML file') {
             steps {
                 script { 
-                    def urls = readYaml file: 'roles/requirements.yml'
-                    echo 'urls.src'
+                    def data = readYaml file: 'config.yml'
+                    println(data.src)
                 }
             }
         }
