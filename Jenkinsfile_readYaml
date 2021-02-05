@@ -1,3 +1,5 @@
+import groovy.json.*
+
 pipeline {
     agent any
     stages {
@@ -9,7 +11,7 @@ pipeline {
         stage('Read YAML file') {
             steps {
                 script { 
-                    def data = readYaml file: 'config.yml'
+                    def data = readYaml file: 'requirements.yml'
                     println(data.src)
                 }
             }
