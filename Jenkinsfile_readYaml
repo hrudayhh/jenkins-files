@@ -4,10 +4,19 @@ pipeline {
         stage('clone') {
             steps {
                 git credentialsId: 'git_creds', url: 'https://github.com/hrudayhh/jjcfw.git'
+                requirementsExists = "${sh(returnStdout: true, script: '[ -e roles/requirements.yml ] && echo 1 || echo 0).trim()}" 
             }
         }
+        //stage('check req') {
+            
+        //}
+        
         stage('Read YAML file') {
+             when {
+                expression { requirementsExists >= "1" }
+            }
             steps {
+                echo 'Requirements file exists'
                 script { 
                     def data = readYaml file: 'roles/requirements.yml'
                     def urls = data.src
