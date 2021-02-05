@@ -14,7 +14,10 @@ pipeline {
                     def data = readYaml file: 'roles/requirements.yml'
                     urls = data.src
                     for (repos in urls) {
-                        sh "git ls-remote ${repos}"
+                        sh '''
+                            ssh-keyscan github.com >> /root/.ssh/known_hosts
+                            git ls-remote ${repos}
+                        '''
                     }
                 }
             }
