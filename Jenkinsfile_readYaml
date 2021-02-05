@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages {
+        stage('clone') {
+            steps {
+                git credentialsId: 'git_creds', url: 'https://github.com/hrudayhh/jjcfw.git'
+            }
+        }
+        stage('Read YAML file') {
+            steps {
+                script { 
+                    urls = readYaml (file: 'roles/requirements.yml') 
+                    echo urls.src.toString()
+                }
+            }
+        }
+    }
+}
