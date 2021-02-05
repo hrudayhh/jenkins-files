@@ -4,7 +4,9 @@ pipeline {
         stage('clone') {
             steps {
                 git credentialsId: 'git_creds', url: 'https://github.com/hrudayhh/jjcfw.git'
-                requirementsExists = "${sh(returnStdout: true, script: '[ -e roles/requirements.yml ] && echo 1 || echo 0').trim()}" 
+                script {
+                    requirementsExists = "${sh(returnStdout: true, script: '[ -e roles/requirements.yml ] && echo 1 || echo 0').trim()}" 
+                }
             }
         }
         //stage('check req') {
