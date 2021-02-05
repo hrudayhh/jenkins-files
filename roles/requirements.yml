@@ -1,5 +1,0 @@
-# role definitions
-
-- src: git+https://github.com/hrudayhh/test-galaxy.git
-  version: main
-
