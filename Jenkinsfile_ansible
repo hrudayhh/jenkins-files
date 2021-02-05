@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        githosturl = "github.com"
+    }
     
     stages { 
         stage('clone') {
@@ -21,8 +24,9 @@ pipeline {
         }
         stage('check urls') {
             steps {
-                sh '''   
+                sh ''' 
                 set -x
+                ssh-keyscan ${githosturl} >> ~/.ssh/known_hosts
                 count_roles=$(grep "src" roles/requirements.yml | cut -d':' -f2,3 | awk '{$1=$1;print}' | wc -l)
                 if [ "$count_roles" -eq 0 ]; then
                   echo "No roles defined in requirements.yml file"
