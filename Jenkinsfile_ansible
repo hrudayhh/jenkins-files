@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        requirementsExists = "${sh(returnStdout: true, script: '[ -e requirements.yml ] && echo 'file found' || echo 'file not found'').trim()}"
+    }
     stages { 
         stage('clone') {
             steps {
