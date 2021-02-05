@@ -14,7 +14,8 @@ pipeline {
                     for (repos in urls) {
                         sh '''
                             # ssh-keyscan github.com >> /root/.ssh/known_hosts
-                            git ls-remote "${repos}"
+                            echo ${repos}
+                            git ls-remote ${repos}
                         '''
                     }
                 }
