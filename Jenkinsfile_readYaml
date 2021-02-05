@@ -12,7 +12,10 @@ pipeline {
             steps {
                 script { 
                     def data = readYaml file: 'roles/requirements.yml'
-                    println(data.src)
+                    urls = data.src
+                    for (repos in urls) {
+                        sh "git ls-remote repos"
+                    }
                 }
             }
         }
