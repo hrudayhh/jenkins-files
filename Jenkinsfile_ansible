@@ -1,12 +1,22 @@
 pipeline {
     agent any
-    environment {
-        requirementsExists = "${sh(returnStdout: true, script: '[ -e roles/requirements.yml ] && echo "file found" || echo "file not found"').trim()}"
-    }
+    
     stages { 
         stage('clone') {
             steps {
                 git credentialsId: 'git_creds', url: 'https://github.com/hrudayhh/jjcfw.git'
+            }
+        }
+        stage('pre-requisites') {
+            stesp {
+                sh '''
+                    echo "requirements file"
+                    if [ -e roles/requirements.yml ]; then 
+                      echo "req file found"
+                    else
+                      echo "req file not found"
+                    fi
+                '''
             }
         }
         stage('check urls') {
@@ -22,7 +32,7 @@ pipeline {
                   echo "Verfying URLs of roles"
                   for repo_url in $(grep "src" roles/requirements.yml | cut -d':' -f2,3 | awk '{$1=$1;print}')
                   do
-                    git ls-remote ssh://$repo_url
+                    git ls-remote $repo_url
                     if [ $? -ne 0 ]; then
                       echo "[ERROR] Git URL $repo_url not found"
                       exit 1
