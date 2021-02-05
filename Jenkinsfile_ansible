@@ -8,7 +8,7 @@ pipeline {
             }
         }
         stage('pre-requisites') {
-            stesp {
+            steps {
                 sh '''
                     echo "requirements file"
                     if [ -e roles/requirements.yml ]; then 
