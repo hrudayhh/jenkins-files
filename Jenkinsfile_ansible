@@ -31,6 +31,9 @@ pipeline {
                     if (!m.find(0)) {                                                         
                         throw new RuntimeException("Oops, text not found!")
                     }
+                    else { 
+                        echo "found"
+                    }
                 }
             }
         }
