@@ -25,10 +25,12 @@ pipeline {
         stage('check urls') {
             steps {
                 script {
-                    def text = "some text to match"
-                    def m = text =~ /match/                                           
+                    //def text = "some text to match"
+                    def output = "${sh(returnStdout: true, script: 'ansible-galaxy install -r roles/requirements.yml -p .')}"
+                    //def m = text =~ /match/                                           
+                    def emptyRequirements = output =~ /ERROR/
                     //assert m instanceof Matcher                                       
-                    if (!m.find(0)) {                                                         
+                    if (!emptyRequirements.find(0)) {                                                         
                         throw new RuntimeException("Oops, text not found!")
                     }
                     else { 
