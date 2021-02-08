@@ -26,9 +26,14 @@ pipeline {
             steps {
                 script {
                     //def text = "some text to match"
-                    def output = "${sh(script: 'ansible-galaxy install -r roles/requirements.yml -p .')}"
-                    //def m = text =~ /match/                                           
-                    def emptyRequirements = output =~ /ERROR/
+                    //def output = "${sh(script: 'ansible-galaxy install -r roles/requirements.yml -p .')}"
+                    sh '''
+                        output=$(ansible-galaxy install -r roles/requirements.yml -p .)
+                    '''
+                    //def m = text =~ /match/
+                    def gal_op = ${output}
+                    println "${gal_op}"
+                    def emptyRequirements = gal_op =~ /ERROR/
                     //assert m instanceof Matcher                                       
                     if (!emptyRequirements.find(0)) {                                                         
                         throw new RuntimeException("Oops, text not found!")
