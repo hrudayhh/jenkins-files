@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     //output = "${sh(returnStdout: true, script: 'ansible-galaxy install -r roles/requirements.yml -p .')}"
-                    output = "${sh(returnStdout: true, script: 'echo "ERROR! No requirements found in file"')}"
+                    output = "${sh(returnStdout: true, script: 'echo ERROR\! No requirements found in file')}"
                     println "${output}"
                     def emptyRequirements = output =~ /*No requirements found in file*/
                     //def emptyRequirements = output =~ /ERROR*/
@@ -40,7 +40,7 @@ pipeline {
                         }
                         */
                         
-                        if (emptyRequirements.find()) {
+                        if (emptyRequirements.find(0)) {
                             echo "There is no requirements found or the requirements are already installed"
                         }
                         
