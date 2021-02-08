@@ -31,7 +31,7 @@ pipeline {
                         def ifDependencyInstalled = output =~ /installed successfully/
                         def ifAlreadyInstalled = output =~ /already installed, skipping/
                         println "${emptyRequirements}"
-                        if (emptyRequirements.find()) {
+                        if (emptyRequirements.matches()) {
                             
                             echo "There is no requirements found or the requirements are already installed"
                         }
