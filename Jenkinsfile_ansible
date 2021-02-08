@@ -32,6 +32,7 @@ pipeline {
                         def ifAlreadyInstalled = output =~ /already installed, skipping/
 
                         if (emptyRequirements.findAll()) {
+                            println(emptyRequirements)
                             echo "There is no requirements found or the requirements are already installed"
                         }
                         else if(ifDependencyInstalled.find()) {
