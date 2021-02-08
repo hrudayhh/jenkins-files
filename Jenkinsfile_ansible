@@ -32,15 +32,17 @@ pipeline {
                         def ifDependencyInstalled = output =~ /installed successfully/
                         def ifAlreadyInstalled = output =~ /already installed, skipping/
                         println "${emptyRequirements}"
-                        assert emptyRequirements instanceof Matcher                                       
+                        //assert emptyRequirements instanceof Matcher                                       
+                        /*
                         if (!emptyRequirements) {                                                         
                             throw new RuntimeException("Oops, text not found!")
                         }
-                        /*
-                        if (emptyRequirements.find()) {
+                        */
+                        
+                        if (emptyRequirements.find(0)) {
                             echo "There is no requirements found or the requirements are already installed"
                         }
-                        */
+                        
                         else if(ifDependencyInstalled.find()) {
                             echo "Dependency Installed successfully"
                         }
