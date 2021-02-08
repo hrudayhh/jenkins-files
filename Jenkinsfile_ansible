@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     def text = "some text to match"
-                    def m = text =~ /requirements/                                           
+                    def m = text =~ /match/                                           
                     //assert m instanceof Matcher                                       
                     if (!m.find(0)) {                                                         
                         throw new RuntimeException("Oops, text not found!")
