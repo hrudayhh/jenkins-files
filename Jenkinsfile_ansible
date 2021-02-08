@@ -25,27 +25,12 @@ pipeline {
         stage('check urls') {
             steps {
                 script {
-                    output = "${sh(returnStdout: true, script: 'ansible-galaxy install -r roles/requirements.yml -p .')}"
-                    //output = "${sh(returnStdout: true, script: 'echo ERROR! No requirements found in file')}"
-                    //println "${output}"
-                    def emptyRequirements = output =~ /*No requirements found in file*/
-                    //def emptyRequirements = output =~ /ERROR*/
-                    def ifDependencyInstalled = output =~ /installed successfully/
-                    def ifAlreadyInstalled = output =~ /already installed, skipping/
-                        //println "${emptyRequirements}"
-                        //assert emptyRequirements instanceof Matcher                                       
-                        /*
-                        if (!emptyRequirements) {                                                         
-                            throw new RuntimeException("Oops, text not found!")
-                        }
-                        */
-                        
-                        if (emptyRequirements.find(0)) {
-                            echo "There is no requirements found or the requirements are already installed"
-                        }
-                        else {
-                            error("Something went wrong with the requirements.yml file please check the logs for more details")
-                        }
+                    def text = "some text to match"
+                    def m = text =~ /match/                                           
+                    //assert m instanceof Matcher                                       
+                    if (!m.find(0)) {                                                         
+                        throw new RuntimeException("Oops, text not found!")
+                    }
                 }
             }
         }
