@@ -30,7 +30,7 @@ pipeline {
                     def emptyRequirements = output =~ /ERROR! No requirements found in file roles\/requirements.yml/
                         def ifDependencyInstalled = output =~ /installed successfully/
                         def ifAlreadyInstalled = output =~ /already installed, skipping/
-                        println(emptyRequirements)
+                        println "${emptyRequirements}"
                         if (emptyRequirements.find()) {
                             
                             echo "There is no requirements found or the requirements are already installed"
