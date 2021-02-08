@@ -24,29 +24,26 @@ pipeline {
         }
         stage('check urls') {
             steps {
-                sh ''' 
-                set -x
-                ssh-keyscan ${githosturl} >> ~/.ssh/known_hosts
-                cat ~/.ssh/known_hosts
-                count_roles=$(grep "src" roles/requirements.yml | cut -d':' -f2,3 | awk '{$1=$1;print}' | wc -l)
-                if [ "$count_roles" -eq 0 ]; then
-                  echo "No roles defined in requirements.yml file"
-                  exit 1
-                elif [ "$count_roles" -gt 0 ]; then
-                  echo "Roles are defined in requirements.yml file"
-                  echo "Verfying URLs of roles"
-                  for repo_url in $(grep "src" roles/requirements.yml | cut -d':' -f2,3 | awk '{$1=$1;print}')
-                  do
-                    git ls-remote $repo_url
-                    if [ $? -ne 0 ]; then
-                      echo "[ERROR] Git URL $repo_url not found"
-                      exit 1
-                    else
-                      echo "Git URL $repo_url found"
-                    fi
-                   done
-                fi
-                '''
+                script {
+                    output = "${sh(returnStdout: true, script: 'ansible-galaxy install -r roles/requirements.yml -p .')}"
+                    println "${output}"
+                    def emptyRequirements = output =~ /ERROR! No requirements found in file/
+                        def ifDependencyInstalled = output =~ /installed successfully/
+                        def ifAlreadyInstalled = output =~ /already installed, skipping/
+
+                        if (emptyRequirements.find()) {
+                            echo "There is no requirements found or the requirements are already installed"
+                        }
+                        else if(ifDependencyInstalled.find()) {
+                            echo "Dependency Installed successfully"
+                        }
+                        else if(ifAlreadyInstalled.find()) {
+                            echo "Dependency Already Installed skipping"
+                        }
+                        else {
+                            error("Something went wrong with the requirements.yml file please check the logs for more details")
+                        }
+                }
             }
         }
     }
