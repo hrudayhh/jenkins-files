@@ -28,8 +28,8 @@ pipeline {
                     //def text = "some text to match"
                     //def output = "${sh(script: 'ansible-galaxy install -r roles/requirements.yml -p .')}"
                     sh '''
-                        output=`ansible-galaxy install -r roles/requirements.yml -p .`
-                        echo $output
+                        ansible-galaxy install -r roles/requirements.yml -p .
+                        
                     '''
                     //def m = text =~ /match/
                     def gal_op = ${output}
