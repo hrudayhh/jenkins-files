@@ -27,7 +27,8 @@ pipeline {
                 script {
                     output = "${sh(returnStdout: true, script: 'ansible-galaxy install -r roles/requirements.yml -p .')}"
                     println "${output}"
-                    def emptyRequirements = output =~ /ERROR! No requirements found in file roles\/requirements.yml/
+                    //def emptyRequirements = output =~ /ERROR! No requirements found in file roles\/requirements.yml/
+                    def emptyRequirements = output =~ /ERROR*/
                         def ifDependencyInstalled = output =~ /installed successfully/
                         def ifAlreadyInstalled = output =~ /already installed, skipping/
                         println "${emptyRequirements}"
